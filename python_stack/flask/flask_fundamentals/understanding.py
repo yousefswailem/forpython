@@ -28,10 +28,14 @@
 
 #4
 
-# from flask import Flask
-# app=Flask(__name__)
-# @app.route('/<int>/<name>')
-# def hello_world(int,name):
-#     return name +" "+ int +" "+"times" 
-# if __name__=="__main__" :
-#     app.run(debug=True)
+from flask import Flask
+app=Flask(__name__)
+
+@app.route('/<int:num>/<name>')
+def hello_world(num,name):
+    x=""
+    for i in range(int(num)):
+        x+="<p>"+ name +"</p>"   
+    return x
+if __name__=="__main__" :
+    app.run(debug=True)
