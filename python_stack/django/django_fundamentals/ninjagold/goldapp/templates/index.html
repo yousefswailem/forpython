@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 5px;
+        }
+        h2 {
+            margin: 30px;
+        }
+        h2 span{
+            margin-left: 5px;
+            font-weight: bold;
+            background-color: goldenrod;
+        }
+        main {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        div {
+            width: 300px;
+            height: 300px;
+            background-color: seagreen;
+            text-align: center;
+            border: 1px solid black;
+            font-size: larger;
+            padding-top: 50px;
+        }
+        section article {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            width: 900px;
+            height: 400px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Your Gold:<span> {{request.session.gold}} </span></h2>
+    <center>
+    <main>
+    <div>
+        <h3> Farm </h3>
+        <p> earns 10-20 golds </p>
+        <form action="/process_money" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="place" value="farm">
+            <input type="submit" class="btn btn-warning" value="Find Gold!">
+        </form>
+    </div>
+    <div>
+        <h3> Cave </h3>
+        <p> earns 10-20 golds </p>
+        <form action="/process_money" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="place" value="cave">
+            <input type="submit" class="btn btn-warning" value="Find Gold!">
+        </form>
+    </div>
+    <div>
+        <h3> House </h3>
+        <p> earns 10-20 golds </p>
+        <form action="/process_money" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="place" value="house">
+            <input type="submit" class="btn btn-warning" value="Find Gold!">
+        </form>
+    </div>
+    <div>
+        <h3>Casino</h3>
+        <p> earns 10-20 golds </p>
+        <form action="/process_money" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="place" value="casino">
+            <input type="submit" class="btn btn-warning" value="Find Gold!">
+        </form>
+    </div>
+</main>
+<section>
+    <h2> Activities</h2>
+    <article style="overflow: scroll;">
+    {% for i in request.session.active %}
+    {% if "Earned" in i %}
+    <p style='color:green;'> {{i}}</p>
+    {% else %}
+    <p style='color:red;'> {{i}}</p>
+    {% endif %}
+    {% endfor %}
+    </article>
+</section>
+</center>
+</body>
+</html>
