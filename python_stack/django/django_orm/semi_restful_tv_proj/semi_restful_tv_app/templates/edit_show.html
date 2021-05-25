@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit a Show</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <form action="/shows/{{id}}/update" method="POST">
+        {% csrf_token %}
+        <h1>edit a  Show</h1>
+        <div class="cell">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title">
+        </div>
+        <div class="cell mid">
+            <label for="network">Network</label>
+            <input type="text" name="network" id="network">
+        </div>
+        <div class="cell mid">
+            <label for="release_date">Release_date</label>
+            <input type="date" name="release_date" id="release_date">
+        </div>
+        <div class="cell">
+            <label for="desc">Description</label>
+            <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
+        </div>
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html>
