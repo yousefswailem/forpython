@@ -16,7 +16,7 @@ class BankAccount:
 	def yield_interest(self):
         if balance >0:
 		self.balance=balance+balance*int_rate
-        else
+                else
         pass
 yousef.deposit(500)
 print(balance)
