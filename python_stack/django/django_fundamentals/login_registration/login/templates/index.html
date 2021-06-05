@@ -7,11 +7,18 @@
     <title>login</title>
 </head>
 <body>
+    {% if messages %}
+    <ul class="messages">    
+        {% for message in messages %}    
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+        {% endfor %}
+    </ul>
+    {% endif %}
     <h1>login</h1>
     <form action="/login" method="POST">
         <input type="hidden" name="login_type" value="login"/>
         {% csrf_token %}
-        name: <input type="text" name="name" placeholder="name"/>
+        email: <input type="email" name="email" placeholder="email"/>
         password: <input type="password" name="password"/>
         <input type="submit" name="submit" value="login"/>
     </form>
@@ -20,6 +27,7 @@
     <form action="/login" method="POST">
         <input type="hidden" name="login_type" value="login_registration"/>
         {% csrf_token %}
+        email: <input type="email" name="email" placeholder="email"/>
         name: <input type="text" name="name" placeholder="name"/>
         password: <input type="password" name="password"/>
         <input type="submit" name="submit" value="login_registration"/>

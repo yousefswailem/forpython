@@ -1,5 +1,6 @@
-from django.http.response import HttpResponse
-from django.shortcuts import redirect, render
+# from django.http.response import 
+from django.shortcuts import redirect, render, HttpResponse
+from django.contrib import messages
 from .models import Show
 
 # Create your views here.
@@ -21,6 +22,13 @@ def add(request):
     # shows/add
     #create a new show and add it to database
     
+    errors = Show.objects.basic_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f'/shows/new')
+
+        
     if request.method == 'POST' :
         title = request.POST['title']
         network = request.POST['network']
@@ -43,15 +51,25 @@ def edit(request, id):
     
 
 def update(request, id):
+
+    errors = Show.objects.basic_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f'/shows/{id}/edit')
+    
+        
+
     #update a selected show (selected by id)
-    if request.method == 'POST' :
+    elif request.method == 'POST' :
         show_to_be_updated = Show.objects.get(id=id)
         show_to_be_updated.title = request.POST['title']
         show_to_be_updated.network = request.POST['network']
         show_to_be_updated.release_date = request.POST['release_date']
         show_to_be_updated.desc = request.POST['desc']
+        messages.success(request, "Show successfully updated")
         show_to_be_updated.save()
-
+        
         return redirect(f'/shows/{id}')
 
         
